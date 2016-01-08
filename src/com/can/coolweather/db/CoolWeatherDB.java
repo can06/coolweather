@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteDatabase;;
 /**
  * 数据库操作类(封装)
  * 
- * @author Administrator
+ * @author can
  *
  */
 public class CoolWeatherDB {
@@ -121,7 +121,7 @@ public class CoolWeatherDB {
 				city.setId(cursor.getInt(cursor.getColumnIndex("id")));
 				city.setCityCode(cursor.getString(cursor.getColumnIndex("city_code")));
 				city.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
-				city.setProvinceId(cursor.getInt(cursor.getColumnIndex("province_id")));
+				city.setProvinceId(provinceId);;
 				citys.add(city);
 
 			} while (cursor.moveToNext());
@@ -162,7 +162,7 @@ public class CoolWeatherDB {
 				county.setId(cursor.getInt(cursor.getColumnIndex("id")));
 				county.setCountyCode(cursor.getString(cursor.getColumnIndex("county_code")));
 				county.setCountyName(cursor.getString(cursor.getColumnIndex("county_name")));
-				county.setCityId(cursor.getInt(cursor.getColumnIndex("city_id")));
+				county.setCityId(cityId);
 				countys.add(county);
 				
 			}while(cursor.moveToNext());

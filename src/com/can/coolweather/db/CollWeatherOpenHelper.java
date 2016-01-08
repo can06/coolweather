@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Êı¾İ¿â°ïÖúÀà
- * @author Administrator
+ * @author can
  *
  */
 public class CollWeatherOpenHelper extends SQLiteOpenHelper {
