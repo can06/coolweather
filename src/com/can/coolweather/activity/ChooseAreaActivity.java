@@ -33,24 +33,24 @@ public class ChooseAreaActivity extends Activity {
 
 	private ListView mListView;
 	private TextView tv_title;
-	private ArrayAdapter<String> adapter; // listview��������
+	private ArrayAdapter<String> adapter; // listview适配器
 	private CoolWeatherDB mCoolWeatherDB;
-	private ProgressDialog mProgressDialog; // ��ȶԻ���
+	private ProgressDialog mProgressDialog; // 进度对话框
 
 	private List<String> dataList = new ArrayList<String>();
-	// ʡ�б�
+	// 省列表
 	private List<Province> provinceList;
-	// ���б�
+	// 市列表
 	private List<City> cityList;
-	// ���б�
+	// 县列表
 	private List<County> countyList;
 
-	// ѡ�е�ʡ��
+	// 选中的省份
 	private Province selectionProvince;
-	// ѡ�еĳ���
+	// 选中的城市
 	private City selectionCity;
 
-	// ��ǰѡ�еļ���
+	// 当前选中的级别
 	private int currentLevel;
 
 	@Override
