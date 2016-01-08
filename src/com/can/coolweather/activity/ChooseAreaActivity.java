@@ -33,24 +33,24 @@ public class ChooseAreaActivity extends Activity {
 
 	private ListView mListView;
 	private TextView tv_title;
-	private ArrayAdapter<String> adapter; // listviewµÄÊÊÅäÆ÷
+	private ArrayAdapter<String> adapter; // listviewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private CoolWeatherDB mCoolWeatherDB;
-	private ProgressDialog mProgressDialog; // ½ø¶È¶Ô»°¿ò
+	private ProgressDialog mProgressDialog; // ï¿½ï¿½È¶Ô»ï¿½ï¿½ï¿½
 
 	private List<String> dataList = new ArrayList<String>();
-	// Ê¡ÁÐ±í
+	// Ê¡ï¿½Ð±ï¿½
 	private List<Province> provinceList;
-	// ÊÐÁÐ±í
+	// ï¿½ï¿½ï¿½Ð±ï¿½
 	private List<City> cityList;
-	// ÏØÁÐ±í
+	// ï¿½ï¿½ï¿½Ð±ï¿½
 	private List<County> countyList;
 
-	// Ñ¡ÖÐµÄÊ¡·Ý
+	// Ñ¡ï¿½Ðµï¿½Ê¡ï¿½ï¿½
 	private Province selectionProvince;
-	// Ñ¡ÖÐµÄ³ÇÊÐ
+	// Ñ¡ï¿½ÐµÄ³ï¿½ï¿½ï¿½
 	private City selectionCity;
 
-	// µ±Ç°Ñ¡ÖÐµÄ¼¶±ð
+	// ï¿½ï¿½Ç°Ñ¡ï¿½ÐµÄ¼ï¿½ï¿½ï¿½
 	private int currentLevel;
 
 	@Override
@@ -70,41 +70,41 @@ public class ChooseAreaActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (currentLevel == LEVEL_PROVINCE) {
 					selectionProvince = provinceList.get(position);
-					// ¼ÓÔØÊÐ¼¶Êý¾Ý
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½
 					queryCitise();
 				} else if (currentLevel == LEVEL_CITY) {
 					selectionCity = cityList.get(position);
-					// ¼ÓÔØÏØ¼¶Êý¾Ý
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½
 					queryCountise();
 				}
 
 			}
 
 		});
-		// ¼ÓÔØÊ¡¼¶Êý¾Ý
+		// ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½
 		queryProvince();
 	}
 
 	/**
-	 * ²éÑ¯È«¹úËùÓÐµÄÊ¡£¬ÓÅÏÈ´ÓÊý¾Ý¿â²éÑ¯£¬Èç¹ûÃ»ÓÐ²éÑ¯µ½ÔÙÈ¥·þÎñÆ÷ÉÏ²éÑ¯
+	 * ï¿½ï¿½Ñ¯È«ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½Ñ¯
 	 */
 	private void queryProvince() {
-		// ²éÑ¯Êý¾Ý¿â
+		// ï¿½ï¿½Ñ¯ï¿½ï¿½Ý¿ï¿½
 		provinceList = mCoolWeatherDB.loadProvince();
-		// ÅÐ¶Ï´ÓÊý¾Ý¿â·µ»ØµÄÊý¾ÝÊÇ·ñÎª¿Õ
+		// ï¿½Ð¶Ï´ï¿½ï¿½ï¿½Ý¿â·µï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½
 		if (provinceList.size() > 0) {
-			// Êý¾Ý²»Îª¿Õ
-			// Çå³ýdataListÀïÃæµÄÊý¾Ý
+			// ï¿½ï¿½Ý²ï¿½Îªï¿½ï¿½
+			// ï¿½ï¿½ï¿½dataListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			dataList.clear();
 			for (Province province : provinceList) {
-				// Ìí¼ÓÊ¡Ãû³Æ
+				// ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½
 				dataList.add(province.getProvinceName());
 			}
-			// ÉèÖÃÊÊÅäÆ÷Îª¶¯Ì¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ì¬
 			adapter.notifyDataSetChanged();
-			// ÏÔÊ¾ÔÚµÚÒ»ÐÐ
+			// ï¿½ï¿½Ê¾ï¿½Úµï¿½Ò»ï¿½ï¿½
 			mListView.setSelection(0);
-			tv_title.setText("ÖÐ¹ú");
+			tv_title.setText("ï¿½Ð¹ï¿½");
 
 			currentLevel = LEVEL_PROVINCE;
 		} else {
@@ -113,7 +113,7 @@ public class ChooseAreaActivity extends Activity {
 	}
 
 	/**
-	 * ²éÑ¯Ñ¡ÖÐµÄÊ¡ÄÚËùÓÐµÄÊÐ£¬ÓÅÏÈ´ÓÊý¾Ý¿â²éÑ¯£¬Èç¹ûÃ»ÓÐ²éÑ¯µ½ÔÙÈ¥·þÎñÆ÷Àï²éÑ¯
+	 * ï¿½ï¿½Ñ¯Ñ¡ï¿½Ðµï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯
 	 */
 	private void queryCitise() {
 		//
@@ -123,9 +123,9 @@ public class ChooseAreaActivity extends Activity {
 			for (City city : cityList) {
 				dataList.add(city.getCityName());
 			}
-			// ÉèÖÃÊÊÅäÆ÷Îª¶¯Ì¬
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ì¬
 			adapter.notifyDataSetChanged();
-			// ÏÔÊ¾ÔÚµÚÒ»ÐÐ
+			// ï¿½ï¿½Ê¾ï¿½Úµï¿½Ò»ï¿½ï¿½
 			mListView.setSelection(0);
 			tv_title.setText(selectionProvince.getProvinceName());
 			currentLevel = LEVEL_CITY;
@@ -135,7 +135,7 @@ public class ChooseAreaActivity extends Activity {
 	}
 
 	/**
-	 * ²éÑ¯Ñ¡ÖÐµÄÊÐÄÚËùÓÐµÄÏØ£¬ÓÅÏÈ´ÓÊý¾Ý¿â²éÑ¯£¬Èç¹ûÃ»ÓÐ²éÑ¯µ½ÔÙÈ¥·þÎñÆ÷Àï²éÑ¯
+	 * ï¿½ï¿½Ñ¯Ñ¡ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯
 	 */
 	private void queryCountise() {
 		countyList = mCoolWeatherDB.loadCounty(selectionCity.getId());
@@ -144,9 +144,9 @@ public class ChooseAreaActivity extends Activity {
 			for (County county : countyList) {
 				dataList.add(county.getCountyName());
 			}
-			// ÉèÖÃÊÊÅäÆ÷Îª¶¯Ì¬,×Ô¶¯Ë¢ÐÂ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ì¬,ï¿½Ô¶ï¿½Ë¢ï¿½ï¿½
 			adapter.notifyDataSetChanged();
-			// ÏÔÊ¾ÔÚµÚÒ»ÐÐ
+			// ï¿½ï¿½Ê¾ï¿½Úµï¿½Ò»ï¿½ï¿½
 			mListView.setSelection(0);
 			tv_title.setText(selectionCity.getCityName());
 			currentLevel = LEVEL_COUNTY;
@@ -157,15 +157,15 @@ public class ChooseAreaActivity extends Activity {
 	}
 
 	/**
-	 * ¸ù¾Ý´«ÈëµÄ´úºÅºÍÀàÐÍ´Ó·þÎñÆ÷ÉÏ²éÑ¯Ê¡ÊÐÏØÊý¾Ý
+	 * ï¿½ï¿½Ý´ï¿½ï¿½ï¿½Ä´ï¿½Åºï¿½ï¿½ï¿½ï¿½Í´Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½Ñ¯Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param code
-	 *            ´úºÅ
+	 *            ï¿½ï¿½ï¿½
 	 * @param type
-	 *            ÀàÐÍ
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void queryFormServer(String code, final String type) {
-		// ÍøÖ·
+		// ï¿½ï¿½Ö·
 		String path;
 
 		if (!TextUtils.isEmpty(code)) {
@@ -174,7 +174,7 @@ public class ChooseAreaActivity extends Activity {
 			path = "http://www.weather.com.cn/data/list3/city.xml";
 		}
 
-		// ÏÔÊ¾¶Ô»°¿ò
+		// ï¿½ï¿½Ê¾ï¿½Ô»ï¿½ï¿½ï¿½
 		showProgressDialog();
 
 		HttpUtil.sendHttpRequest(path, new HttpCallbackListener() {
@@ -194,7 +194,7 @@ public class ChooseAreaActivity extends Activity {
 					//
 					runOnUiThread(new Runnable() {
 						public void run() {
-							// ¹Ø±Õ¶Ô»°¿ò
+							// ï¿½Ø±Õ¶Ô»ï¿½ï¿½ï¿½
 							closeProgressDialog();
 							if ("province".equals(type)) {
 								queryProvince();
@@ -212,9 +212,9 @@ public class ChooseAreaActivity extends Activity {
 			public void onError(Exception e) {
 				runOnUiThread(new Runnable() {
 					public void run() {
-						// ¹Ø±Õ½ø¶È¶Ô»°¿ò
+						// ï¿½Ø±Õ½ï¿½È¶Ô»ï¿½ï¿½ï¿½
 						closeProgressDialog();
-						Toast.makeText(ChooseAreaActivity.this, "¼ÓÔØÊ§°Ü", Toast.LENGTH_SHORT).show();
+						Toast.makeText(ChooseAreaActivity.this, "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½", Toast.LENGTH_SHORT).show();
 					}
 				});
 
@@ -222,17 +222,17 @@ public class ChooseAreaActivity extends Activity {
 		});
 	}
 
-	// ÏÔÊ¾½ø¶È¶Ô»°¿ò
+	// ï¿½ï¿½Ê¾ï¿½ï¿½È¶Ô»ï¿½ï¿½ï¿½
 	private void showProgressDialog() {
 		if (mProgressDialog == null) {
 			mProgressDialog = new ProgressDialog(this);
-			mProgressDialog.setMessage("ÕýÔÚ¼ÓÔØÖÐ...");
+			mProgressDialog.setMessage("ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½...");
 			mProgressDialog.setCanceledOnTouchOutside(false);
 		}
 		mProgressDialog.show();
 	}
 
-	// ¹Ø±Õ½ø¶È¶Ô»°¿ò
+	// ï¿½Ø±Õ½ï¿½È¶Ô»ï¿½ï¿½ï¿½
 	private void closeProgressDialog() {
 		if (mProgressDialog != null) {
 			mProgressDialog.dismiss();
