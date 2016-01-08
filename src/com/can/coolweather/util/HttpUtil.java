@@ -8,7 +8,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 /**
- * ÍøÂç¹¤¾ßÀà
+ * ç½‘ç»œå·¥å…·ç±»
  * 
  * @author can
  *
@@ -35,12 +35,12 @@ public class HttpUtil {
 						String data = EntityUtils.toString(mHttpEntity, "utf-8");
 
 						if (httpCallbackListener != null) {
-							// »Øµ÷onFinish·½·¨
+							// è°ƒç”¨onFinishæ–¹æ³•
 							httpCallbackListener.onFinish(data);
 						}
 					}
 				} catch (Exception e) {
-					// »Øµ÷onError·½·¨
+					// è°ƒç”¨onErroræ–¹æ³•
 					httpCallbackListener.onError(e);
 				}
 

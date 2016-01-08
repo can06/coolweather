@@ -8,7 +8,7 @@ import com.can.coolweather.model.Province;
 import android.text.TextUtils;
 
 /**
- * ½âÎö´¦Àí¹¤¾ßÀà
+ * è§£æå’Œå¤„ç†æœåŠ¡å™¨è¿”å›æ•°æ®çš„å·¥å…·ç±»
  * 
  * @author can
  *
@@ -20,26 +20,26 @@ public class Utility {
 	}
 
 	/**
-	 * ½âÎöºÍ´¦Àí·şÎñÆ÷·µ»ØµÄÊ¡¼¶Êı¾İ
+	 * è§£æå’Œå¤„ç†æœåŠ¡å™¨è¿”å›çš„çœçº§æ•°æ®
 	 * 
 	 * @param data
-	 *            ·şÎñÆ÷·µ»ØµÄÊı¾İ
+	 *            æœåŠ¡å™¨è¿”å›çš„çœçº§æ•°æ®
 	 * @param mCoolWeatherDB
-	 *            ´æ´¢Êı¾İ
-	 * @return booleanÀàĞÍ
+	 *            CoolWeatherDBå®ä¾‹
+	 * @return booleanç±»å‹
 	 */
 	public synchronized static boolean handlerProvinceResponse(String data, CoolWeatherDB mCoolWeatherDB) {
-		//ÅĞ¶Ï×Ö·û´®ÊÇ·ñÎª¿Õ»ò¡°¡±£»
+		//åˆ¤æ–­æ•°æ®æ˜¯å¦ä¸ºç©ºæˆ–è€…null
 		if (!TextUtils.isEmpty(data)) {
-			String[] allProvince = data.split(","); // °ÑÒÔ,µÄ×Ö·û´®·Ö¸î³öÀ´
+			String[] allProvince = data.split(","); // å°†ä»¥","ä½œä¸ºåˆ†å‰²çº¿
 			if (allProvince != null && allProvince.length > 0) {
 				for (String p : allProvince) {
-					String[] provinceArray = p.split("\\|"); // °ÑÀıÈç01|±±¾©µÄ×Ö·û´®¸ø·Ö¸î³öÀ´
+					String[] provinceArray = p.split("\\|"); // å°†ä»¥"|"ä½œä¸ºåˆ†å‰²çº¿
 					Province province = new Province();
 					province.setProvinceCode(provinceArray[0]);
 					province.setProvinceName(provinceArray[1]);
 
-					// ½«½âÎö³öÀ´µÄÊı¾İ´æ´¢µ½Province±í
+					// å°†provinceå®ä¾‹å­˜å‚¨åˆ°Provinceè¡¨
 					mCoolWeatherDB.saveProvince(province);
 				}
 				return true;
@@ -49,15 +49,15 @@ public class Utility {
 	}
 
 	/**
-	 * ½âÎöºÍ´¦Àí·şÎñÆ÷·µ»ØµÄÊĞ¼¶Êı¾İ
+	 * è§£æå’Œå¤„ç†æœåŠ¡å™¨è¿”å›çš„å¸‚çº§æ•°æ®
 	 * 
 	 * @param data
-	 *            ·şÎñÆ÷·µ»ØµÄÊı¾İ
+	 *            æœåŠ¡å™¨è¿”å›çš„å¸‚çº§æ•°æ®
 	 * @param mCoolWeatherDB
-	 *            ´æ´¢Êı¾İ
+	 *            CoolWeatherDBå®ä¾‹
 	 * @param provinceId
-	 *            ÊĞµÄ¹ØÁª¼ü
-	 * @return ·µ»Ø²¼¶ûÀàĞÍ
+	 *            çœä»½çš„IDå·
+	 * @return booleanç±»å‹
 	 */
 	public  static boolean handlerCityResponse(String data, CoolWeatherDB mCoolWeatherDB, int provinceId) {
 		if (!TextUtils.isEmpty(data)) {
@@ -70,7 +70,7 @@ public class Utility {
 					city.setCityName(cityArray[1]);
 					city.setProvinceId(provinceId);
 
-					// ½«½âÎö³öÀ´µÄÊı¾İ´æ´¢µ½City±í
+					// å°†cityå®ä¾‹å­˜å‚¨åˆ°Cityè¡¨
 					mCoolWeatherDB.saveCity(city);
 				}
 				return true;
@@ -81,15 +81,15 @@ public class Utility {
 	}
 
 	/**
-	 * ½âÎöºÍ´¦Àí·şÎñÆ÷·µ»ØµÄÊı¾İ
+	 * è§£æå’Œå¤„ç†æœåŠ¡å™¨è¿”å›çš„å¿çº§æ•°æ®
 	 * 
 	 * @param data
-	 *            ·şÎñÆ÷·µ»ØµÄÊı¾İ
+	 *            æœåŠ¡å™¨è¿”å›çš„å¿çº§æ•°æ®
 	 * @param mCoolWeatherDB
-	 *            ´æ´¢Êı¾İ
+	 *            CoolWeatherDBå®ä¾‹
 	 * @param cityId
-	 *            ÏØµÄ¹ØÁª¼ü
-	 * @return ·µ»Ø²¼¶ûÀàĞÍ
+	 *            åŸå¸‚çš„IDå·
+	 * @return booleanç±»å‹
 	 */
 	public  static boolean handlerCountyResponse(String data, CoolWeatherDB mCoolWeatherDB, int cityId) {
 		if (!TextUtils.isEmpty(data)) {
@@ -102,7 +102,7 @@ public class Utility {
 					county.setCountyName(countyArray[1]);
 					county.setCityId(cityId);
 
-					// ½«½âÎö³öÀ´µÄÊı¾İ´æ´¢µ½county±í
+					// å°†countyå®ä¾‹å­˜å‚¨åˆ°countyè¡¨
 					mCoolWeatherDB.saveCounty(county);
 				}
 				return true;

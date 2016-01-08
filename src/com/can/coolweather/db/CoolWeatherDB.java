@@ -13,33 +13,33 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;;
 
 /**
- * Êı¾İ¿â²Ù×÷Àà(·â×°)
+ * æ“ä½œæ•°æ®åº“çš„å°è£…ç±»
  * 
  * @author can
  *
  */
 public class CoolWeatherDB {
 
-	// Êı¾İ¿âÃû³Æ
+	// æ•°æ®åº“å
 	private static final String DB_NAME = "cool_weather.db";
 
-	// Êı¾İ¿â°æ±¾ºÅ
+	// æ•°æ®åº“ç‰ˆæœ¬å·
 	private static final int VERSION = 1;
 
 	private SQLiteDatabase mSqLiteDatabase;
 	private static CoolWeatherDB mCoolWeatherDB;
 
-	// ½«¹¹Ôì·½·¨Ë½ÓĞ»¯
+	// å°†æ„é€ æ–¹æ³•ç§æœ‰åŒ–
 	private CoolWeatherDB(Context context) {
 		CollWeatherOpenHelper mCollWeatherOpenHelper = new CollWeatherOpenHelper(context, DB_NAME, null, VERSION);
 		mSqLiteDatabase = mCollWeatherOpenHelper.getWritableDatabase();
 	}
 
 	/**
-	 * »ñÈ¡CoolWeatherDBµÄÊµÀı
+	 * è·å–CoolWeatherDBç±»
 	 * 
 	 * @param context
-	 *            ÉÏÏÂÎÄ
+	 *            ä¸Šä¸‹æ–‡
 	 * @return CoolWeatherDB
 	 */
 	public synchronized static CoolWeatherDB getInstance(Context context) {
@@ -50,10 +50,10 @@ public class CoolWeatherDB {
 	}
 
 	/**
-	 * ½«ProvinceÊµÀı´æ´¢µ½Êı¾İ¿â
+	 * å°†Provinceå®ä¾‹å­˜å‚¨åˆ°æ•°æ®åº“
 	 * 
 	 * @param province
-	 *            ±íÊ¾Ê¡
+	 *           çœä»½
 	 */
 	public void saveProvince(Province province) {
 		if (province != null) {
@@ -65,9 +65,9 @@ public class CoolWeatherDB {
 	}
 
 	/**
-	 * ´ÓÊı¾İ¿â¶ÁÈ¡È«¹úËùÓĞµÄÊ¡·İĞÅÏ¢
+	 * ä»æ•°æ®åº“è¯»å–å…¨å›½æ‰€æœ‰çœä»½ä¿¡æ¯
 	 * 
-	 * @return ·µ»ØÊ¡µÄ¼¯ºÏ
+	 * @return çœä»½çš„é›†åˆ
 	 */
 	public List<Province> loadProvince() {
 		List<Province> provinces = new ArrayList<Province>();
@@ -90,10 +90,10 @@ public class CoolWeatherDB {
 	}
 
 	/**
-	 * ½«CityÊµÀı´æ´¢µ½Êı¾İ¿â
+	 * å°†Cityå®ä¾‹å­˜å‚¨åˆ°æ•°æ®åº“
 	 * 
 	 * @param city
-	 *            ±íÊ¾ÊĞ
+	 *            åŸå¸‚çš„å®ä¾‹
 	 */
 	public void saveCity(City city) {
 		if (city != null) {
@@ -106,10 +106,10 @@ public class CoolWeatherDB {
 	}
 
 	/**
-	 * ´ÓÊı¾İ¿â¶ÁÈ¡Ä³Ê¡ËùÓĞµÄ³ÇÊĞĞÅÏ¢
+	 * ä»æ•°æ®åº“è¯»å–çœçº§æ‰€æœ‰çš„åŸå¸‚ä¿¡æ¯
 	 * 
-	 * @param provinceId
-	 * @return ·µ»Ø³ÇÊĞµÄ¼¯ºÏ
+	 * @param provinceId	çœä»½çš„IDå·
+	 * @return 	åŸå¸‚çš„é›†åˆ
 	 */
 	public List<City> loadCity(int provinceId) {
 		List<City> citys = new ArrayList<City>();
@@ -133,10 +133,10 @@ public class CoolWeatherDB {
 	}
 
 	/**
-	 * ½«CountyÊµÀı´æ´¢µ½Êı¾İ¿â
+	 * å°†Countyå®ä¾‹å­˜å‚¨åˆ°æ•°æ®åº“
 	 * 
 	 * @param county
-	 *            ±íÊ¾ÏØ
+	 *            å¿çš„å®ä¾‹
 	 */
 	public void saveCounty(County county) {
 		if (county != null) {
@@ -149,9 +149,9 @@ public class CoolWeatherDB {
 	}
 
 	/**
-	 * ´ÓÊı¾İ¿â¶ÁÈ¡Ä³ÊĞËùÓĞµÄÏØĞÅÏ¢
-	 * @param provinceId
-	 * @return ·µ»ØÏØµÄ¼¯ºÏ
+	 * ä»æ•°æ®åº“è¯»å–å¸‚çº§æ‰€æœ‰çš„å¿ä¿¡æ¯
+	 * @param cityId	åŸå¸‚çš„IDå·
+	 * @return 	å¿çš„é›†åˆ
 	 */
 	public List<County> loadCounty(int cityId){
 		List<County> countys = new ArrayList<County>();

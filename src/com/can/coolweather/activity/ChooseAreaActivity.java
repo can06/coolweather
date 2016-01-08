@@ -70,41 +70,40 @@ public class ChooseAreaActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (currentLevel == LEVEL_PROVINCE) {
 					selectionProvince = provinceList.get(position);
-					// �����м����
+					// 加载城市的数据
 					queryCitise();
 				} else if (currentLevel == LEVEL_CITY) {
 					selectionCity = cityList.get(position);
-					// �����ؼ����
+					// 加载县的数据
 					queryCountise();
 				}
 
 			}
 
 		});
-		// ����ʡ�����
+		// 加载省份的数据
 		queryProvince();
 	}
 
 	/**
-	 * ��ѯȫ�����е�ʡ�����ȴ���ݿ��ѯ�����û�в�ѯ����ȥ�������ϲ�ѯ
+	 * 查询全国所有的省，优先从数据库查询，如果数据库没有查询到再去服务器上查询
 	 */
 	private void queryProvince() {
-		// ��ѯ��ݿ�
+		// 查询数据库
 		provinceList = mCoolWeatherDB.loadProvince();
-		// �жϴ���ݿⷵ�ص�����Ƿ�Ϊ��
+		// 判断集合是否有元素
 		if (provinceList.size() > 0) {
-			// ��ݲ�Ϊ��
-			// ���dataList��������
+			// 清除dataList数据
 			dataList.clear();
 			for (Province province : provinceList) {
-				// ���ʡ���
+				// 添加数据
 				dataList.add(province.getProvinceName());
 			}
-			// ����������Ϊ��̬
+			// 刷新数据
 			adapter.notifyDataSetChanged();
-			// ��ʾ�ڵ�һ��
+			// 设置置顶
 			mListView.setSelection(0);
-			tv_title.setText("�й�");
+			tv_title.setText("中国");
 
 			currentLevel = LEVEL_PROVINCE;
 		} else {
@@ -113,19 +112,16 @@ public class ChooseAreaActivity extends Activity {
 	}
 
 	/**
-	 * ��ѯѡ�е�ʡ�����е��У����ȴ���ݿ��ѯ�����û�в�ѯ����ȥ���������ѯ
+	 * 查询选中的省所有的城市，优先从数据库查询，如果数据库没有查询到再去服务器上查询
 	 */
 	private void queryCitise() {
-		//
 		cityList = mCoolWeatherDB.loadCity(selectionProvince.getId());
 		if (cityList.size() > 0) {
 			dataList.clear();
 			for (City city : cityList) {
 				dataList.add(city.getCityName());
 			}
-			// ����������Ϊ��̬
 			adapter.notifyDataSetChanged();
-			// ��ʾ�ڵ�һ��
 			mListView.setSelection(0);
 			tv_title.setText(selectionProvince.getProvinceName());
 			currentLevel = LEVEL_CITY;
@@ -135,7 +131,7 @@ public class ChooseAreaActivity extends Activity {
 	}
 
 	/**
-	 * ��ѯѡ�е��������е��أ����ȴ���ݿ��ѯ�����û�в�ѯ����ȥ���������ѯ
+	 * 查询选中的城市所有的县，优先从数据库查询，如果数据库没有查询到再去服务器上查询
 	 */
 	private void queryCountise() {
 		countyList = mCoolWeatherDB.loadCounty(selectionCity.getId());
@@ -144,9 +140,7 @@ public class ChooseAreaActivity extends Activity {
 			for (County county : countyList) {
 				dataList.add(county.getCountyName());
 			}
-			// ����������Ϊ��̬,�Զ�ˢ��
 			adapter.notifyDataSetChanged();
-			// ��ʾ�ڵ�һ��
 			mListView.setSelection(0);
 			tv_title.setText(selectionCity.getCityName());
 			currentLevel = LEVEL_COUNTY;
@@ -157,15 +151,15 @@ public class ChooseAreaActivity extends Activity {
 	}
 
 	/**
-	 * ��ݴ���Ĵ�ź����ʹӷ������ϲ�ѯʡ�������
+	 * 根据传入的代号和类型从服务器上查询省市县数据
 	 * 
 	 * @param code
-	 *            ���
+	 *            传入的代号
 	 * @param type
-	 *            ����
+	 *            传入的类型
 	 */
 	private void queryFormServer(String code, final String type) {
-		// ��ַ
+		// 网址ַ
 		String path;
 
 		if (!TextUtils.isEmpty(code)) {
@@ -174,7 +168,7 @@ public class ChooseAreaActivity extends Activity {
 			path = "http://www.weather.com.cn/data/list3/city.xml";
 		}
 
-		// ��ʾ�Ի���
+		// 显示进度对话框
 		showProgressDialog();
 
 		HttpUtil.sendHttpRequest(path, new HttpCallbackListener() {
@@ -191,10 +185,10 @@ public class ChooseAreaActivity extends Activity {
 				}
 
 				if (result) {
-					//
+					//通过runOnUiThread()方法回到主线程处理逻辑
 					runOnUiThread(new Runnable() {
 						public void run() {
-							// �رնԻ���
+							// 关闭进度对话框
 							closeProgressDialog();
 							if ("province".equals(type)) {
 								queryProvince();
@@ -212,9 +206,9 @@ public class ChooseAreaActivity extends Activity {
 			public void onError(Exception e) {
 				runOnUiThread(new Runnable() {
 					public void run() {
-						// �رս�ȶԻ���
+						// 关闭进度对话框
 						closeProgressDialog();
-						Toast.makeText(ChooseAreaActivity.this, "����ʧ��", Toast.LENGTH_SHORT).show();
+						Toast.makeText(ChooseAreaActivity.this, "加载数据失败", Toast.LENGTH_SHORT).show();
 					}
 				});
 
@@ -222,23 +216,26 @@ public class ChooseAreaActivity extends Activity {
 		});
 	}
 
-	// ��ʾ��ȶԻ���
+	// 显示进度对话框
 	private void showProgressDialog() {
 		if (mProgressDialog == null) {
 			mProgressDialog = new ProgressDialog(this);
-			mProgressDialog.setMessage("���ڼ�����...");
+			mProgressDialog.setMessage("正在加载...");
 			mProgressDialog.setCanceledOnTouchOutside(false);
 		}
 		mProgressDialog.show();
 	}
 
-	// �رս�ȶԻ���
+	// 关闭进度对话框
 	private void closeProgressDialog() {
 		if (mProgressDialog != null) {
 			mProgressDialog.dismiss();
 		}
 	}
 
+	/**
+	 * 捕捉Back按键，根据当前的级别来判断，此时应该返回市列表、省列表，还是直接退出
+	 */
 	@Override
 	public void onBackPressed() {
 		if (currentLevel == LEVEL_COUNTY) {

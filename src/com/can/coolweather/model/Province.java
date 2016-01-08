@@ -3,9 +3,9 @@ package com.can.coolweather.model;
 public class Province {
 
 	private int id;
-	// 省名
+	// 鐪佷唤鍚嶇О
 	private String provinceName;
-	// 省名代号
+	// 鐪佷唤浠ｅ彿
 	private String provinceCode;
 
 	public Province() {

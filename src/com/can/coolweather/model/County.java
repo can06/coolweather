@@ -2,11 +2,11 @@ package com.can.coolweather.model;
 
 public class County {
 	private int id;
-	// 县名
+	// 鍘跨殑鍚嶇О
 	private String countyName;
-	// 县名代号
+	// 鍘跨殑浠ｅ彿
 	private String countyCode;
-
+	//鍩庡競鐨処D
 	private int cityId;
 
 	public int getCityId() {
